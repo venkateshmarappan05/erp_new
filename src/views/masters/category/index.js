@@ -33,8 +33,6 @@ export default class CategoryPage extends Component {
           'Your imaginary file has been deleted.',
           'success'
         )
-      // For more information about handling dismissals please visit
-      // https://sweetalert2.github.io/#handling-dismissals
       } else if (result.dismiss === Alert.DismissReason.cancel) {
         Alert.fire(
           'Cancelled',
@@ -90,7 +88,7 @@ export default class CategoryPage extends Component {
                         <td>2011/04/25</td>
                         <td className="table-action">
                           <Link to={"#"} onClick={()=>this.editData({name:'test'})} style={{marginRight:10}}><i className="fa fa-pencil align-middle" aria-hidden="true"></i></Link>
-                          <Link to={"#"} onClick={()=>this.DeleteData()}><i className="fa fa-trash-o align-middle" aria-hidden="true"></i></Link>
+                          <Link to={"#"} onClick={this.deleteData}><i className="fa fa-trash-o align-middle" aria-hidden="true"></i></Link>
 											  </td>
                       </tr>
                     </tbody>
