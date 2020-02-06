@@ -11,3 +11,12 @@
 .mrgn_lft55 {
    margin-left: 55px;
 }
+.table thead th {
+    vertical-align: none;
+}
+ .table th {
+    vertical-align: none;
+ }
+ tr{
+     text-align: center;
+ }

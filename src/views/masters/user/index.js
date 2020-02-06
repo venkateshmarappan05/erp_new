@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import Modal from './modal';
 import Alert from 'sweetalert2';
 
+const headers =['Name','Position','Office','Age','Start date','Action'];  
+const searchItem = headers.slice(0, -1)
+
 export default class BrandPage extends Component {
   state = {
     modal :false,
@@ -56,11 +59,11 @@ export default class BrandPage extends Component {
                 <div className="card-header">
                   <div className="row">
                     <div className="col-6  text-left">
-                      <div id="datatables-basic_filter" className="dataTables_filter">
+                      {/* <div id="datatables-basic_filter" className="dataTables_filter">
                         <label>Search:
                         <input type="search" className="form-control form-control-sm" placeholder="" aria-controls="datatables-basic" />
                         </label>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="col-6 text-right">
                       <div id="datatables-basic_filter" className="dataTables_filter">
@@ -73,12 +76,14 @@ export default class BrandPage extends Component {
                   <table id="datatables-buttons" className="table table-striped" style={{ width: '100%' }}>
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Action</th>
+                        {
+                          headers.map((item,keys) => <th key={keys}>{item}</th>)
+                        }
+                      </tr>
+                      <tr>
+                        {
+                          searchItem.map((item,keys) => <th key={keys}> <input type="search" className="form-control form-control-sm"  name= {item} onChange={this.searchItem} placeholder={`Serach ${item}`} aria-controls="datatables-basic"/></th>)
+                        }
                       </tr>
                     </thead>
                     <tbody>

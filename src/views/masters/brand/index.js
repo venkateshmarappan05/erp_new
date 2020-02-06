@@ -3,20 +3,27 @@ import { Link } from 'react-router-dom'
 import Modal from './modal';
 import Alert from 'sweetalert2';
 
+const headers = ['Name', 'Position', 'Office', 'Age', 'Start date'];
 export default class BrandPage extends Component {
   state = {
-    modal :false,
-    edit:{}
+    modal: false,
+    edit: {},
+    search: {}
   }
   modalOpen = () => {
-    this.setState({modal: true})
+    this.setState({ modal: true })
   }
-  modalClose =() => {
-    this.setState({modal:false , edit:{}})
+  modalClose = () => {
+    this.setState({ modal: false, edit: {} })
   }
   editData = data => {
-    this.setState({modal:true , edit:data})
+    this.setState({ modal: true, edit: data })
   }
+  searchItem = e => {
+    e.preventDefault();
+    console.log(e.target.name, e.target.value)
+  }
+
   deleteData = e => {
     e.preventDefault();
     Alert.fire({
@@ -33,8 +40,6 @@ export default class BrandPage extends Component {
           'Your imaginary file has been deleted.',
           'success'
         )
-      // For more information about handling dismissals please visit
-      // https://sweetalert2.github.io/#handling-dismissals
       } else if (result.dismiss === Alert.DismissReason.cancel) {
         Alert.fire(
           'Cancelled',
@@ -45,7 +50,7 @@ export default class BrandPage extends Component {
     })
   }
   render() {
-    const { modal,edit } = this.state;
+    const { modal, edit } = this.state;
     return (
       <main className="content">
         <div className="container-fluid p-0">
@@ -56,15 +61,15 @@ export default class BrandPage extends Component {
                 <div className="card-header">
                   <div className="row">
                     <div className="col-6  text-left">
-                      <div id="datatables-basic_filter" className="dataTables_filter">
-                        <label>Search:
-                        <input type="search" className="form-control form-control-sm" placeholder="" aria-controls="datatables-basic" />
-                        </label>
+                    <div className="dt-buttons btn-group">
+                          <button className="btn btn-secondary buttons-copy buttons-html5"  onClick ={this.importCsv}tabIndex="0" aria-controls="datatables-buttons" type="button"><span>Import</span></button>
+                          {/* <button className="btn btn-secondary buttons-print" tabIndex="0" aria-controls="datatables-buttons" type="button"><span>Print</span></button> */}
                       </div>
                     </div>
                     <div className="col-6 text-right">
-                      <div id="datatables-basic_filter" className="dataTables_filter">
-                        <button className="btn btn-primary" data-toggle="modal" onClick={()=>this.modalOpen()} data-target="#sizedModalLg">New Brand</button>
+                      <div className="dt-buttons btn-group">
+                          <button className="btn btn-secondary buttons-copy buttons-html5" tabIndex="0" aria-controls="datatables-buttons" type="button"><span>Export</span></button>
+                          <button className="btn btn-secondary buttons-print" tabIndex="0" aria-controls="datatables-buttons" type="button"><span>Print</span></button>
                       </div>
                     </div>
                   </div>
@@ -73,25 +78,30 @@ export default class BrandPage extends Component {
                   <table id="datatables-buttons" className="table table-striped" style={{ width: '100%' }}>
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
+                        {
+                          headers.map((item, keys) => <th key={keys}>{item}</th>)
+                        }
                         <th>Action</th>
+                      </tr>
+                      <tr>
+                        {
+                          headers.map((item, keys) => <th key={keys}> <input type="search" className="form-control" name={item} onChange={this.searchItem} placeholder={`Serach ${item}`} aria-controls="datatables-basic" /></th>)
+                        }
+                        <th><button className="btn btn-primary btn-sm" data-toggle="modal" onClick={() => this.modalOpen()} data-target="#sizedModalLg">New Brand</button></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
+
                         <td>Tiger Nixon</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
                         <td>61</td>
                         <td>2011/04/25</td>
                         <td className="table-action">
-                          <Link to={"#"} onClick={()=>this.editData({name:'test'})} style={{marginRight:10}}><i className="fa fa-pencil align-middle" aria-hidden="true"></i></Link>
+                          <Link to={"#"} onClick={() => this.editData({ name: 'test' })} style={{ marginRight: 10 }}><i className="fa fa-pencil align-middle" aria-hidden="true"></i></Link>
                           <Link to={"#"} onClick={this.deleteData}><i className="fa fa-trash-o align-middle" aria-hidden="true"></i></Link>
-											  </td>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -99,7 +109,7 @@ export default class BrandPage extends Component {
               </div>
             </div>
           </div>
-          <Modal modalOpen={modal} modalClose={this.modalClose} edit={edit}/>
+          <Modal modalOpen={modal} modalClose={this.modalClose} edit={edit} />
         </div>
       </main>
     );
