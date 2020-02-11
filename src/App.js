@@ -6,7 +6,9 @@ import ProductPages from 'views/masters/product';
 import UserPages from 'views/masters/user';
 import CategoryPages from 'views/masters/category';
 import CustomerPages from 'views/masters/customer';
-
+// Product //
+import ProductCategory from 'views/masters/product/category'
+import ProductItem from 'views/masters/product/item'
 import 'assets/css/classic.css'; 
 import 'assets/css/styles.css'; 
 import '../node_modules/font-awesome/css/font-awesome.css';
@@ -19,6 +21,10 @@ const App = ({location}) => (
       <Route location={location} path="/master/user" exact component={UserPages} />
       <Route location={location} path="/master/Category" exact component={CategoryPages} />
       <Route location={location} path="/master/customer" exact component={CustomerPages} />
+        {/* Products  */}
+        <Route location={location} path="/master/product" exact component={ProductPages} />
+        <Route location ={location} path="/product/items" exact component={ProductItem}/>
+        <Route location ={location} path="/product/category" exact component={ProductCategory}/>
     </Switch>
   </div>
 )
